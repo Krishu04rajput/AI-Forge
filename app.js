@@ -1,305 +1,46 @@
 /*
-    AI FORGE
-    GitHub-only learning platform
+============================================================
+AI FORGE
+Python → AI → LLM Engineering
 
-    IMPORTANT:
-    No database.
-    No backend.
-    No external API.
-
-    User progress is stored locally in the browser.
+GitHub-only architecture
+User data = localStorage
+Course data = course.js
+No database
+No backend
+============================================================
 */
 
-
-// ============================================================
-// LESSON DATA
-// ============================================================
-
-const lessons = [
-
-    {
-        id: "python-intro",
-
-        number: "01",
-
-        title: "What is Python?",
-
-        description:
-            "Understand Python, programming and why Python is important in AI.",
-
-        xp: 100,
-
-        content: `
-            <article class="lesson-article">
-
-                <p class="eyebrow">
-                    PYTHON // LESSON 01
-                </p>
-
-                <h1>What is Python?</h1>
-
-                <p>
-                    Python is a high-level programming language designed
-                    to make writing and understanding programs easier.
-                </p>
-
-                <h2>Why are we learning Python?</h2>
-
-                <p>
-                    Python is widely used for web development, automation,
-                    data science, machine learning and artificial intelligence.
-                </p>
-
-                <h2>Your first Python program</h2>
-
-                <div class="code-box">
-<pre>print("Hello, World!")</pre>
-                </div>
-
-                <p>
-                    The <strong>print()</strong> function tells Python to
-                    display something.
-                </p>
-
-                <h2>Try understanding it</h2>
-
-                <p>
-                    Don't worry about memorizing everything yet.
-                    Our goal is to understand what code actually does.
-                </p>
-
-                <div class="code-box">
-<pre>print("I am learning Python")
-print(10)
-print(5 + 5)</pre>
-                </div>
-
-                <h2>Mini challenge</h2>
-
-                <p>
-                    What do you think this program will output?
-                </p>
-
-                <div class="code-box">
-<pre>print(20 + 30)</pre>
-                </div>
-
-                <p>
-                    Answer: <strong>50</strong>.
-                </p>
-
-                <button
-                    class="primary-btn lesson-complete"
-                    onclick="completeLesson('python-intro')"
-                >
-                    ✓ COMPLETE LESSON
-                </button>
-
-            </article>
-        `
-    },
-
-
-    {
-        id: "python-variables",
-
-        number: "02",
-
-        title: "Variables",
-
-        description:
-            "Learn how Python stores and works with information.",
-
-        xp: 120,
-
-        content: `
-            <article class="lesson-article">
-
-                <p class="eyebrow">
-                    PYTHON // LESSON 02
-                </p>
-
-                <h1>Variables</h1>
-
-                <p>
-                    A variable is a name that refers to a value.
-                </p>
-
-                <h2>Creating a variable</h2>
-
-                <div class="code-box">
-<pre>name = "Krishu"
-age = 16
-
-print(name)
-print(age)</pre>
-                </div>
-
-                <p>
-                    Here Python stores the value
-                    <strong>"Krishu"</strong> under the name
-                    <strong>name</strong>.
-                </p>
-
-                <h2>Numbers</h2>
-
-                <div class="code-box">
-<pre>x = 10
-y = 20
-
-result = x + y
-
-print(result)</pre>
-                </div>
-
-                <h2>Changing values</h2>
-
-                <div class="code-box">
-<pre>score = 10
-
-score = 20
-
-print(score)</pre>
-                </div>
-
-                <p>
-                    The final value of <strong>score</strong> is 20.
-                </p>
-
-                <button
-                    class="primary-btn lesson-complete"
-                    onclick="completeLesson('python-variables')"
-                >
-                    ✓ COMPLETE LESSON
-                </button>
-
-            </article>
-        `
-    },
-
-
-    {
-        id: "python-input-output",
-
-        number: "03",
-
-        title: "Input & Output",
-
-        description:
-            "Learn how programs receive information and respond to users.",
-
-        xp: 150,
-
-        content: `
-            <article class="lesson-article">
-
-                <p class="eyebrow">
-                    PYTHON // LESSON 03
-                </p>
-
-                <h1>Input & Output</h1>
-
-                <p>
-                    Programs become interactive when they can receive
-                    information from a user.
-                </p>
-
-                <h2>Output</h2>
-
-                <div class="code-box">
-<pre>print("Hello!")</pre>
-                </div>
-
-                <h2>Input</h2>
-
-                <div class="code-box">
-<pre>name = input("What is your name? ")
-
-print("Hello", name)</pre>
-                </div>
-
-                <p>
-                    The <strong>input()</strong> function waits for the
-                    user to enter something.
-                </p>
-
-                <h2>Numbers from input</h2>
-
-                <div class="code-box">
-<pre>age = int(input("Enter your age: "))
-
-print(age)</pre>
-                </div>
-
-                <p>
-                    By default, input is text. The
-                    <strong>int()</strong> function converts suitable text
-                    into an integer.
-                </p>
-
-                <h2>Mini challenge</h2>
-
-                <p>
-                    Imagine building a program that asks for two numbers
-                    and prints their sum.
-                </p>
-
-                <button
-                    class="primary-btn lesson-complete"
-                    onclick="completeLesson('python-input-output')"
-                >
-                    ✓ COMPLETE LESSON
-                </button>
-
-            </article>
-        `
-    }
-
-];
-
-
-// ============================================================
-// LOCAL DATA
-// ============================================================
 
 const STORAGE_KEY = "aiForgeData";
 
 
 const defaultData = {
-
     completedLessons: [],
-
     xp: 0,
-
     streak: 0,
-
     lastVisit: null,
-
     notes: "",
-
     quizResults: {},
-
     doubts: []
-
 };
 
 
 let data = loadData();
 
 
+/* =========================================================
+   STORAGE
+========================================================= */
+
 function loadData() {
 
     try {
 
-        const saved =
-            localStorage.getItem(STORAGE_KEY);
+        const saved = localStorage.getItem(STORAGE_KEY);
 
         if (!saved) {
-
-            return {
-                ...defaultData
-            };
-
+            return { ...defaultData };
         }
 
         return {
@@ -307,31 +48,28 @@ function loadData() {
             ...JSON.parse(saved)
         };
 
-    } catch (error) {
+    } catch {
 
-        console.error("Could not load local data:", error);
+        return { ...defaultData };
 
-        return {
-            ...defaultData
-        };
     }
 }
 
 
-function saveData() {
+function saveData(message = "Saved locally ✓") {
 
     localStorage.setItem(
         STORAGE_KEY,
         JSON.stringify(data)
     );
 
-    showToast("Saved locally ✓");
+    showToast(message);
 }
 
 
-// ============================================================
-// NAVIGATION
-// ============================================================
+/* =========================================================
+   NAVIGATION
+========================================================= */
 
 const navButtons =
     document.querySelectorAll(".nav-btn");
@@ -348,37 +86,21 @@ navButtons.forEach(button => {
 });
 
 
-document
-    .querySelectorAll(".module-card:not(.locked)")
-    .forEach(card => {
-
-        card.addEventListener("click", () => {
-
-            navigate(card.dataset.page);
-
-        });
-
-    });
-
-
 function navigate(pageName) {
 
     document
         .querySelectorAll(".page")
         .forEach(page => {
-
             page.classList.remove("active");
-
         });
 
 
-    const target =
+    const page =
         document.getElementById(pageName);
 
-    if (target) {
 
-        target.classList.add("active");
-
+    if (page) {
+        page.classList.add("active");
     }
 
 
@@ -399,41 +121,65 @@ function navigate(pageName) {
 
 
     if (pageName === "learn") {
-
         renderLessons();
-
     }
 
-
     if (pageName === "notes") {
-
         loadNotes();
-
     }
 
 }
 
 
-// ============================================================
-// DASHBOARD
-// ============================================================
+/* =========================================================
+   COURSE CALCULATIONS
+========================================================= */
+
+function totalLessons() {
+
+    return Array.isArray(LESSONS)
+        ? LESSONS.length
+        : 0;
+
+}
+
+
+function completedCount() {
+
+    return data.completedLessons.length;
+
+}
+
+
+function coursePercent() {
+
+    const total = totalLessons();
+
+    if (!total) return 0;
+
+    return Math.round(
+        (completedCount() / total) * 100
+    );
+
+}
+
+
+/* =========================================================
+   DASHBOARD
+========================================================= */
 
 function updateDashboard() {
 
-    const completed =
-        data.completedLessons.length;
-
-
-    const total =
-        lessons.length;
-
-
     const percent =
-        Math.round((completed / total) * 100);
+        coursePercent();
+
+
+    const xp =
+        data.xp;
 
 
     document.getElementById("xp")
-        .textContent = data.xp;
+        .textContent = xp;
 
 
     document.getElementById("streak")
@@ -443,7 +189,7 @@ function updateDashboard() {
 
     document.getElementById("completedCount")
         .textContent =
-        `${completed} / ${total}`;
+        `${completedCount()} / ${totalLessons()}`;
 
 
     document.getElementById("progressPercent")
@@ -463,7 +209,7 @@ function updateDashboard() {
 
     document.getElementById("level")
         .textContent =
-        calculateLevel(data.xp);
+        calculateLevel(xp);
 
 
     updateCurrentLesson();
@@ -473,17 +219,17 @@ function updateDashboard() {
 
 function calculateLevel(xp) {
 
-    if (xp >= 3000)
-        return "AI Architect";
+    if (xp >= 10000) return "AI Architect";
 
-    if (xp >= 2000)
-        return "AI Engineer";
+    if (xp >= 7000) return "AI Engineer";
 
-    if (xp >= 1000)
-        return "Developer";
+    if (xp >= 4500) return "ML Engineer";
 
-    if (xp >= 500)
-        return "Coder";
+    if (xp >= 3000) return "Developer";
+
+    if (xp >= 1500) return "Coder";
+
+    if (xp >= 500) return "Apprentice";
 
     return "Beginner";
 
@@ -492,44 +238,49 @@ function calculateLevel(xp) {
 
 function updateCurrentLesson() {
 
-    const nextLesson =
-        lessons.find(
+    const next =
+        LESSONS.find(
             lesson =>
-                !data.completedLessons.includes(lesson.id)
+                !data.completedLessons
+                    .includes(lesson.id)
         );
 
 
-    if (!nextLesson) {
+    if (!next) {
 
-        document.getElementById("currentLessonTitle")
-            .textContent =
-            "Python Foundations Complete!";
+        document.getElementById(
+            "currentLessonTitle"
+        ).textContent =
+            "Python Foundation Complete";
 
 
-        document.getElementById("currentLessonDescription")
-            .textContent =
-            "Excellent. The next training module will unlock soon.";
+        document.getElementById(
+            "currentLessonDescription"
+        ).textContent =
+            "You completed the current course.";
 
         return;
 
     }
 
 
-    document.getElementById("currentLessonTitle")
-        .textContent =
-        nextLesson.title;
+    document.getElementById(
+        "currentLessonTitle"
+    ).textContent =
+        next.title;
 
 
-    document.getElementById("currentLessonDescription")
-        .textContent =
-        nextLesson.description;
+    document.getElementById(
+        "currentLessonDescription"
+    ).textContent =
+        next.description;
 
 }
 
 
-// ============================================================
-// LESSON LIST
-// ============================================================
+/* =========================================================
+   LESSON LIST
+========================================================= */
 
 function renderLessons() {
 
@@ -537,15 +288,17 @@ function renderLessons() {
         document.getElementById("lessonList");
 
 
+    if (!container) return;
+
+
     container.innerHTML = "";
 
 
-    lessons.forEach((lesson, index) => {
+    LESSONS.forEach((lesson, index) => {
 
         const completed =
-            data.completedLessons.includes(
-                lesson.id
-            );
+            data.completedLessons
+                .includes(lesson.id);
 
 
         const card =
@@ -553,23 +306,25 @@ function renderLessons() {
 
 
         card.className =
-            `lesson-card ${completed ? "completed" : ""}`;
+            `lesson-card ${
+                completed ? "completed" : ""
+            }`;
 
 
         card.innerHTML = `
 
             <div class="lesson-index">
-                ${lesson.number}
+                ${String(index + 1).padStart(2, "0")}
             </div>
 
             <div>
 
                 <h3>
-                    ${lesson.title}
+                    ${escapeHTML(lesson.title)}
                 </h3>
 
                 <p>
-                    ${lesson.description}
+                    ${escapeHTML(lesson.description)}
                 </p>
 
             </div>
@@ -578,15 +333,8 @@ function renderLessons() {
                 class="secondary-btn"
                 onclick="openLesson('${lesson.id}')"
             >
-
-                ${completed ? "REVIEW" : "START →"}
-
+                ${completed ? "REVIEW" : "LEARN →"}
             </button>
-
-            ${completed
-                ? `<span class="complete-mark">✓</span>`
-                : ""
-            }
 
         `;
 
@@ -598,25 +346,29 @@ function renderLessons() {
 }
 
 
-// ============================================================
-// OPEN LESSON
-// ============================================================
+/* =========================================================
+   OPEN LESSON
+========================================================= */
 
 function openLesson(id) {
 
     const lesson =
-        lessons.find(
+        LESSONS.find(
             item => item.id === id
         );
 
 
-    if (!lesson)
-        return;
+    if (!lesson) return;
 
 
-    document.getElementById("lessonContent")
-        .innerHTML =
-        lesson.content;
+    const container =
+        document.getElementById(
+            "lessonContent"
+        );
+
+
+    container.innerHTML =
+        buildLessonHTML(lesson);
 
 
     navigate("lesson");
@@ -627,47 +379,136 @@ function openLesson(id) {
 window.openLesson = openLesson;
 
 
-// ============================================================
-// COMPLETE LESSON
-// ============================================================
+/* =========================================================
+   LESSON HTML
+========================================================= */
+
+function buildLessonHTML(lesson) {
+
+    const completed =
+        data.completedLessons
+            .includes(lesson.id);
+
+
+    return `
+
+        <article class="lesson-article">
+
+            <p class="eyebrow">
+                PYTHON // ${lesson.number}
+            </p>
+
+            <h1>
+                ${escapeHTML(lesson.title)}
+            </h1>
+
+            <p>
+                ${escapeHTML(lesson.description)}
+            </p>
+
+
+            ${lesson.sections.map(section => `
+
+                <h2>
+                    ${escapeHTML(section.heading)}
+                </h2>
+
+                ${section.content}
+
+            `).join("")}
+
+
+            ${
+                lesson.quiz
+                ? buildQuizHTML(lesson)
+                : ""
+            }
+
+
+            <div class="lesson-complete">
+
+                ${
+                    completed
+
+                    ? `
+                        <button
+                            class="secondary-btn"
+                            disabled
+                        >
+                            ✓ LESSON COMPLETED
+                        </button>
+                    `
+
+                    : `
+                        <button
+                            class="primary-btn"
+                            onclick="completeLesson('${lesson.id}')"
+                        >
+                            ✓ COMPLETE LESSON
+                            +${lesson.xp} XP
+                        </button>
+                    `
+                }
+
+            </div>
+
+        </article>
+
+    `;
+
+}
+
+
+/* =========================================================
+   COMPLETE LESSON
+========================================================= */
 
 function completeLesson(id) {
 
     const lesson =
-        lessons.find(
+        LESSONS.find(
             item => item.id === id
         );
 
 
-    if (!lesson)
-        return;
+    if (!lesson) return;
 
 
     if (
-        !data.completedLessons.includes(id)
+        data.completedLessons
+            .includes(id)
     ) {
 
-        data.completedLessons.push(id);
+        showToast("Already completed.");
 
-        data.xp += lesson.xp;
-
-        saveData();
-
-        updateStreak();
-
-        updateDashboard();
-
-        renderLessons();
-
-        showToast(
-            `Lesson complete! +${lesson.xp} XP`
-        );
-
-    } else {
-
-        showToast("Lesson already completed.");
+        return;
 
     }
+
+
+    data.completedLessons.push(id);
+
+    data.xp += lesson.xp;
+
+
+    updateStreak();
+
+
+    saveData(
+        `Lesson complete! +${lesson.xp} XP`
+    );
+
+
+    updateDashboard();
+
+    renderLessons();
+
+
+    setTimeout(() => {
+
+        openLesson(id);
+
+    }, 250);
 
 }
 
@@ -675,73 +516,148 @@ function completeLesson(id) {
 window.completeLesson = completeLesson;
 
 
-// ============================================================
-// CONTINUE BUTTONS
-// ============================================================
+/* =========================================================
+   QUIZ
+========================================================= */
 
-document
-    .getElementById("continueLearning")
-    .addEventListener("click", () => {
+function buildQuizHTML(lesson) {
 
-        const next =
-            lessons.find(
-                lesson =>
-                    !data.completedLessons
-                        .includes(lesson.id)
-            );
+    const quiz =
+        lesson.quiz;
 
 
-        if (next) {
+    return `
 
-            openLesson(next.id);
+        <div class="quiz-box">
 
-        } else {
+            <p class="eyebrow">
+                KNOWLEDGE CHECK
+            </p>
 
-            navigate("learn");
-
-        }
-
-    });
-
-
-document
-    .getElementById("openCurrentLesson")
-    .addEventListener("click", () => {
-
-        const next =
-            lessons.find(
-                lesson =>
-                    !data.completedLessons
-                        .includes(lesson.id)
-            );
+            <h2>
+                ${escapeHTML(quiz.question)}
+            </h2>
 
 
-        if (next) {
+            <div class="quiz-options">
 
-            openLesson(next.id);
+                ${quiz.options.map(
+                    (option, index) => `
 
-        }
+                        <button
+                            class="quiz-option"
+                            onclick="answerQuiz(
+                                '${lesson.id}',
+                                ${index}
+                            )"
+                        >
+                            ${escapeHTML(option)}
+                        </button>
 
-    });
+                    `
+                ).join("")}
+
+            </div>
 
 
-document
-    .getElementById("backToLearn")
-    .addEventListener("click", () => {
+            <div
+                id="quiz-result-${lesson.id}"
+                class="quiz-result"
+            ></div>
 
-        navigate("learn");
+        </div>
 
-    });
+    `;
+
+}
 
 
-// ============================================================
-// STREAK
-// ============================================================
+function answerQuiz(
+    lessonId,
+    answerIndex
+) {
+
+    const lesson =
+        LESSONS.find(
+            item => item.id === lessonId
+        );
+
+
+    if (!lesson || !lesson.quiz)
+        return;
+
+
+    const quiz =
+        lesson.quiz;
+
+
+    const result =
+        document.getElementById(
+            `quiz-result-${lessonId}`
+        );
+
+
+    if (
+        data.quizResults[lessonId]
+    ) {
+
+        result.innerHTML =
+            "✓ You already answered this quiz.";
+
+        return;
+
+    }
+
+
+    if (
+        answerIndex === quiz.correct
+    ) {
+
+        data.quizResults[lessonId] = true;
+
+        data.xp += quiz.xp;
+
+
+        result.innerHTML = `
+            <strong>✓ Correct!</strong>
+            ${escapeHTML(quiz.explanation)}
+            <br><br>
+            +${quiz.xp} XP
+        `;
+
+
+        saveData(
+            `Correct answer! +${quiz.xp} XP`
+        );
+
+
+        updateDashboard();
+
+    } else {
+
+        result.innerHTML = `
+            <strong>Not quite.</strong>
+            ${escapeHTML(quiz.hint)}
+        `;
+
+    }
+
+}
+
+
+window.answerQuiz = answerQuiz;
+
+
+/* =========================================================
+   STREAK
+========================================================= */
 
 function updateStreak() {
 
     const today =
-        new Date().toISOString().slice(0, 10);
+        new Date()
+            .toISOString()
+            .slice(0, 10);
 
 
     if (!data.lastVisit) {
@@ -760,7 +676,9 @@ function updateStreak() {
 
         const difference =
             Math.floor(
-                (current - previous) /
+                (
+                    current - previous
+                ) /
                 (1000 * 60 * 60 * 24)
             );
 
@@ -780,6 +698,7 @@ function updateStreak() {
 
     data.lastVisit = today;
 
+
     localStorage.setItem(
         STORAGE_KEY,
         JSON.stringify(data)
@@ -788,195 +707,247 @@ function updateStreak() {
 }
 
 
-// ============================================================
-// NOTES
-// ============================================================
+/* =========================================================
+   NOTES
+========================================================= */
 
 function loadNotes() {
 
-    document.getElementById("notesArea")
-        .value =
-        data.notes || "";
+    const area =
+        document.getElementById(
+            "notesArea"
+        );
+
+
+    if (area) {
+
+        area.value =
+            data.notes || "";
+
+    }
 
 }
 
 
 document
     .getElementById("saveNotes")
-    .addEventListener("click", () => {
+    ?.addEventListener(
+        "click",
+        () => {
 
-        data.notes =
-            document.getElementById("notesArea")
-                .value;
-
-
-        saveData();
-
-        document.getElementById("saveStatus")
-            .textContent =
-            "● SAVED LOCALLY";
-
-    });
+            data.notes =
+                document
+                    .getElementById("notesArea")
+                    .value;
 
 
-// Auto-save notes every few seconds
+            saveData("Notes saved locally ✓");
+
+        }
+    );
+
 
 document
     .getElementById("notesArea")
-    .addEventListener("input", () => {
+    ?.addEventListener(
+        "input",
+        event => {
 
-        data.notes =
-            document.getElementById("notesArea")
-                .value;
-
-
-        localStorage.setItem(
-            STORAGE_KEY,
-            JSON.stringify(data)
-        );
-
-        document.getElementById("saveStatus")
-            .textContent =
-            "● AUTO-SAVED";
-
-    });
+            data.notes =
+                event.target.value;
 
 
-// ============================================================
-// DOUBT SYSTEM
-// ============================================================
+            localStorage.setItem(
+                STORAGE_KEY,
+                JSON.stringify(data)
+            );
+
+
+            const status =
+                document.getElementById(
+                    "saveStatus"
+                );
+
+
+            if (status) {
+
+                status.textContent =
+                    "● AUTO-SAVED";
+
+            }
+
+        }
+    );
+
+
+/* =========================================================
+   DOUBTS
+========================================================= */
 
 document
     .getElementById("askDoubt")
-    .addEventListener("click", () => {
+    ?.addEventListener(
+        "click",
+        () => {
 
-        const input =
-            document.getElementById("doubtInput")
-                .value.trim();
+            const input =
+                document
+                    .getElementById("doubtInput")
+                    .value
+                    .trim();
 
 
-        const response =
-            document.getElementById("doubtResponse");
+            const response =
+                document.getElementById(
+                    "doubtResponse"
+                );
 
 
-        if (!input) {
+            if (!input) {
 
-            response.classList.remove("hidden");
+                response.classList.remove(
+                    "hidden"
+                );
 
-            response.innerHTML =
-                "⚠️ Write your question first.";
 
-            return;
+                response.innerHTML =
+                    "⚠️ Write your doubt first.";
+
+                return;
+
+            }
+
+
+            data.doubts.push({
+
+                question: input,
+
+                date:
+                    new Date().toISOString()
+
+            });
+
+
+            saveData(
+                "Doubt saved locally ✓"
+            );
+
+
+            response.classList.remove(
+                "hidden"
+            );
+
+
+            response.innerHTML = `
+
+                <strong>
+                    DOUBT SAVED
+                </strong>
+
+                <br><br>
+
+                ${escapeHTML(input)}
+
+                <br><br>
+
+                🤖 AI Tutor will be connected
+                in a later version.
+
+            `;
 
         }
+    );
 
 
-        /*
-            V1 does not contact an AI API.
-
-            This is intentionally local-only.
-
-            The AI tutor backend can be added later
-            without changing the interface.
-        */
-
-
-        response.classList.remove("hidden");
-
-
-        response.innerHTML = `
-
-            <strong>LOCAL TUTOR MODE</strong>
-
-            <br><br>
-
-            Your doubt has been saved locally.
-
-            <br><br>
-
-            <strong>Your question:</strong>
-
-            <br>
-
-            ${escapeHTML(input)}
-
-            <br><br>
-
-            🤖 AI Tutor integration is not connected yet.
-
-            <br><br>
-
-            For now, use this space to write down
-            exactly what you don't understand.
-
-        `;
-
-
-        data.doubts.push({
-
-            question: input,
-
-            date:
-                new Date().toISOString()
-
-        });
-
-
-        saveData();
-
-    });
-
-
-// ============================================================
-// TUTOR MODES
-// ============================================================
+/* =========================================================
+   RESET
+========================================================= */
 
 document
-    .querySelectorAll(".tutor-mode")
-    .forEach(button => {
+    .getElementById("resetData")
+    ?.addEventListener(
+        "click",
+        () => {
 
-        button.addEventListener("click", () => {
+            const confirmed =
+                confirm(
+                    "Reset ALL AI Forge progress?"
+                );
 
-            const mode =
-                button.textContent.trim();
+
+            if (!confirmed)
+                return;
+
+
+            localStorage.removeItem(
+                STORAGE_KEY
+            );
+
+
+            data =
+                {
+                    ...defaultData
+                };
+
+
+            updateDashboard();
+
+            renderLessons();
+
+            loadNotes();
 
 
             showToast(
-                `${mode} mode ready for AI integration`
+                "All local data reset."
             );
 
-        });
+        }
+    );
 
-    });
+
+/* =========================================================
+   MOBILE MENU
+========================================================= */
+
+document
+    .getElementById("mobileMenu")
+    ?.addEventListener(
+        "click",
+        () => {
+
+            document
+                .querySelector(".sidebar")
+                ?.classList
+                .toggle("mobile-open");
+
+        }
+    );
 
 
-// ============================================================
-// ESCAPE HTML
-// ============================================================
+/* =========================================================
+   UTILITIES
+========================================================= */
 
-function escapeHTML(text) {
+function escapeHTML(value) {
 
-    const element =
+    const div =
         document.createElement("div");
 
-    element.textContent = text;
+    div.textContent =
+        String(value);
 
-    return element.innerHTML;
+    return div.innerHTML;
 
 }
-
-
-// ============================================================
-// TOAST
-// ============================================================
-
-let toastTimeout;
 
 
 function showToast(message) {
 
     const toast =
         document.getElementById("toast");
+
+
+    if (!toast) return;
 
 
     toast.textContent =
@@ -986,78 +957,29 @@ function showToast(message) {
     toast.classList.add("show");
 
 
-    clearTimeout(toastTimeout);
+    clearTimeout(
+        window.aiForgeToast
+    );
 
 
-    toastTimeout =
-        setTimeout(() => {
+    window.aiForgeToast =
+        setTimeout(
+            () => {
 
-            toast.classList.remove("show");
+                toast.classList.remove(
+                    "show"
+                );
 
-        }, 2500);
+            },
+            2500
+        );
 
 }
 
 
-// ============================================================
-// RESET
-// ============================================================
-
-document
-    .getElementById("resetData")
-    .addEventListener("click", () => {
-
-        const confirmed =
-            confirm(
-                "Reset all AI Forge progress, XP and notes?"
-            );
-
-
-        if (!confirmed)
-            return;
-
-
-        localStorage.removeItem(
-            STORAGE_KEY
-        );
-
-
-        data = {
-            ...defaultData
-        };
-
-
-        updateDashboard();
-
-        renderLessons();
-
-        loadNotes();
-
-        showToast(
-            "All local data has been reset."
-        );
-
-    });
-
-
-// ============================================================
-// MOBILE MENU
-// ============================================================
-
-document
-    .getElementById("mobileMenu")
-    .addEventListener("click", () => {
-
-        document
-            .querySelector(".sidebar")
-            .classList.toggle("mobile-open");
-
-    });
-
-
-// ============================================================
-// INITIALIZE
-// ============================================================
+/* =========================================================
+   INITIALIZATION
+========================================================= */
 
 updateStreak();
 
