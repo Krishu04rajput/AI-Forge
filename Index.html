@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Forge — Python to AI</title>
+    <meta
+        name="description"
+        content="AI Forge — Learn Python, Machine Learning, Deep Learning and LLM Engineering step by step."
+    >
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="background-grid"></div>
+<!-- SIDEBAR -->
+<aside class="sidebar">
+    <div class="brand">
+        <div class="brand-core">
+            <span></span>
+        </div>
+        <div>
+            <h1>AI FORGE</h1>
+            <p>PYTHON → AI → LLM</p>
+        </div>
+    </div>
+    <nav>
+        <button class="nav-btn active" data-page="dashboard">
+            <span>⌂</span>
+            Dashboard
+        </button>
+        <button class="nav-btn" data-page="learn">
+            <span>◈</span>
+            Learn
+        </button>
+        <button class="nav-btn" data-page="roadmap">
+            <span>◇</span>
+            Roadmap
+        </button>
+        <button class="nav-btn" data-page="doubts">
+            <span>?</span>
+            Doubts
+        </button>
+        <button class="nav-btn" data-page="notes">
+            <span>▤</span>
+            My Notes
+        </button>
+    </nav>
+    <div class="sidebar-bottom">
+        <div class="local-status">
+            <span class="status-dot"></span>
+            <div>
+                <strong>LOCAL MODE</strong>
+                <small>Your data stays here</small>
+            </div>
+        </div>
+        <button id="resetData" class="danger-btn">
+            Reset Progress
+        </button>
+    </div>
+</aside>
+<!-- MAIN -->
+<main class="main">
+    <!-- MOBILE HEADER -->
+    <header class="mobile-header">
+        <div class="brand">
+            <div class="brand-core small">
+                <span></span>
+            </div>
+            <h1>AI FORGE</h1>
+        </div>
+        <button id="mobileMenu">☰</button>
+    </header>
+    <!-- DASHBOARD -->
+    <section id="dashboard" class="page active">
+        <div class="hero">
+            <div>
+                <p class="eyebrow">SYSTEM ONLINE // LOCAL LEARNING MODE</p>
+                <h2>
+                    Forge your path from
+                    <span>Python</span>
+                    to AI.
+                </h2>
+                <p class="hero-text">
+                    Learn programming, machine learning, deep learning
+                    and LLM engineering step by step.
+                </p>
+                <button class="primary-btn" id="continueLearning">
+                    CONTINUE LEARNING →
+                </button>
+            </div>
+            <div class="orb">
+                <div class="orb-ring ring1"></div>
+                <div class="orb-ring ring2"></div>
+                <div class="orb-ring ring3"></div>
+                <div class="orb-core">
+                    AI
+                </div>
+            </div>
+        </div>
+        <!-- STATS -->
+        <div class="stats-grid">
+            <div class="stat-card">
+                <span class="stat-icon">🔥</span>
+                <div>
+                    <small>STREAK</small>
+                    <strong id="streak">0 days</strong>
+                </div>
+            </div>
+            <div class="stat-card">
+                <span class="stat-icon">⚡</span>
+                <div>
+                    <small>XP</small>
+                    <strong id="xp">0</strong>
+                </div>
+            </div>
+            <div class="stat-card">
+                <span class="stat-icon">◆</span>
+                <div>
+                    <small>LEVEL</small>
+                    <strong id="level">Beginner</strong>
+                </div>
+            </div>
+            <div class="stat-card">
+                <span class="stat-icon">✓</span>
+                <div>
+                    <small>LESSONS</small>
+                    <strong id="completedCount">0 / 3</strong>
+                </div>
+            </div>
+        </div>
+        <!-- CURRENT MISSION -->
+        <div class="section-title">
+            <div>
+                <p class="eyebrow">CURRENT MISSION</p>
+                <h3>Python Foundations</h3>
+            </div>
+        </div>
+        <div class="mission-card">
+            <div class="mission-info">
+                <div class="lesson-number">
+                    01
+                </div>
+                <div>
+                    <h3 id="currentLessonTitle">
+                        What is Python?
+                    </h3>
+                    <p id="currentLessonDescription">
+                        Understand what Python is and why it is used in AI.
+                    </p>
+                </div>
+            </div>
+            <div class="progress-container">
+                <div class="progress-label">
+                    <span>Course progress</span>
+                    <span id="progressPercent">0%</span>
+                </div>
+                <div class="progress-bar">
+                    <div id="progressFill"></div>
+                </div>
+            </div>
+            <button class="secondary-btn" id="openCurrentLesson">
+                OPEN LESSON
+            </button>
+        </div>
+        <!-- QUICK ACCESS -->
+        <div class="section-title">
+            <div>
+                <p class="eyebrow">TRAINING MODULES</p>
+                <h3>Start Learning</h3>
+            </div>
+        </div>
+        <div class="module-grid">
+            <div class="module-card" data-page="learn">
+                <div class="module-icon python-icon">PY</div>
+                <span class="module-status">ACTIVE</span>
+                <h3>Python</h3>
+                <p>Programming from absolute zero.</p>
+                <span class="module-arrow">→</span>
+            </div>
+            <div class="module-card locked">
+                <div class="module-icon">ML</div>
+                <span class="module-status locked-status">LOCKED</span>
+                <h3>Machine Learning</h3>
+                <p>Algorithms, data and prediction.</p>
+                <span class="module-arrow">→</span>
+            </div>
+            <div class="module-card locked">
+                <div class="module-icon">DL</div>
+                <span class="module-status locked-status">LOCKED</span>
+                <h3>Deep Learning</h3>
+                <p>Neural networks and PyTorch.</p>
+                <span class="module-arrow">→</span>
+            </div>
+            <div class="module-card locked">
+                <div class="module-icon">LLM</div>
+                <span class="module-status locked-status">LOCKED</span>
+                <h3>LLM Engineering</h3>
+                <p>Transformers, RAG and agents.</p>
+                <span class="module-arrow">→</span>
+            </div>
+        </div>
+    </section>
+    <!-- LEARN -->
+    <section id="learn" class="page">
+        <div class="page-header">
+            <div>
+                <p class="eyebrow">TRAINING // MODULE 01</p>
+                <h2>Python Foundations</h2>
+                <p>Start from absolute zero and build your programming foundation.</p>
+            </div>
+            <div class="course-progress">
+                <strong id="learnProgress">0%</strong>
+                <small>COMPLETE</small>
+            </div>
+        </div>
+        <div id="lessonList" class="lesson-list"></div>
+    </section>
+    <!-- LESSON -->
+    <section id="lesson" class="page">
+        <button class="back-btn" id="backToLearn">
+            ← BACK TO LESSONS
+        </button>
+        <div id="lessonContent"></div>
+    </section>
+    <!-- ROADMAP -->
+    <section id="roadmap" class="page">
+        <div class="page-header">
+            <div>
+                <p class="eyebrow">LONG-TERM MISSION</p>
+                <h2>AI Engineering Roadmap</h2>
+                <p>From your first Python program to advanced LLM engineering.</p>
+            </div>
+        </div>
+        <div class="roadmap">
+            <div class="road active">
+                <span>01</span>
+                <div>
+                    <small>ACTIVE</small>
+                    <h3>Python Foundations</h3>
+                    <p>Syntax, variables, conditions, loops and functions.</p>
+                </div>
+            </div>
+            <div class="road">
+                <span>02</span>
+                <div>
+                    <small>UP NEXT</small>
+                    <h3>Advanced Python</h3>
+                    <p>OOP, modules, files, APIs, databases and advanced concepts.</p>
+                </div>
+            </div>
+            <div class="road">
+                <span>03</span>
+                <div>
+                    <small>LOCKED</small>
+                    <h3>Computer Science</h3>
+                    <p>Data structures, algorithms and computational thinking.</p>
+                </div>
+            </div>
+            <div class="road">
+                <span>04</span>
+                <div>
+                    <small>LOCKED</small>
+                    <h3>Mathematics for AI</h3>
+                    <p>Vectors, matrices, probability, statistics and calculus.</p>
+                </div>
+            </div>
+            <div class="road">
+                <span>05</span>
+                <div>
+                    <small>LOCKED</small>
+                    <h3>Machine Learning</h3>
+                    <p>Regression, classification, clustering and model evaluation.</p>
+                </div>
+            </div>
+            <div class="road">
+                <span>06</span>
+                <div>
+                    <small>LOCKED</small>
+                    <h3>Deep Learning</h3>
+                    <p>Neural networks, backpropagation and optimization.</p>
+                </div>
+            </div>
+            <div class="road">
+                <span>07</span>
+                <div>
+                    <small>LOCKED</small>
+                    <h3>PyTorch</h3>
+                    <p>Build and train real neural networks.</p>
+                </div>
+            </div>
+            <div class="road">
+                <span>08</span>
+                <div>
+                    <small>LOCKED</small>
+                    <h3>NLP + Transformers</h3>
+                    <p>Tokens, embeddings, attention and transformers.</p>
+                </div>
+            </div>
+            <div class="road">
+                <span>09</span>
+                <div>
+                    <small>LOCKED</small>
+                    <h3>LLM Engineering</h3>
+                    <p>RAG, agents, inference, fine-tuning and evaluation.</p>
+                </div>
+            </div>
+            <div class="road final-road">
+                <span>10</span>
+                <div>
+                    <small>FINAL MISSION</small>
+                    <h3>Build Your Own AI</h3>
+                    <p>Design, train and deploy your own intelligent systems.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- DOUBTS -->
+    <section id="doubts" class="page">
+        <div class="page-header">
+            <div>
+                <p class="eyebrow">AI TUTOR // LOCAL INTERFACE</p>
+                <h2>Doubt Center</h2>
+                <p>Ask questions while learning. AI integration will be added later.</p>
+            </div>
+        </div>
+        <div class="doubt-box">
+            <div class="tutor-avatar">
+                AI
+            </div>
+            <div class="tutor-content">
+                <span class="tutor-status">
+                    ● TUTOR READY
+                </span>
+                <h3>What are you confused about?</h3>
+                <textarea
+                    id="doubtInput"
+                    placeholder="Example: Why do we use return instead of print?"
+                ></textarea>
+                <div class="tutor-actions">
+                    <button class="primary-btn" id="askDoubt">
+                        ASK DOUBT
+                    </button>
+                    <button class="secondary-btn tutor-mode">
+                        💡 HINT
+                    </button>
+                    <button class="secondary-btn tutor-mode">
+                        🐛 DEBUG
+                    </button>
+                    <button class="secondary-btn tutor-mode">
+                        🧠 DEEP DIVE
+                    </button>
+                </div>
+                <div id="doubtResponse" class="doubt-response hidden"></div>
+            </div>
+        </div>
+    </section>
+    <!-- NOTES -->
+    <section id="notes" class="page">
+        <div class="page-header">
+            <div>
+                <p class="eyebrow">LOCAL STORAGE</p>
+                <h2>My Notes</h2>
+                <p>Your notes are stored only on this device.</p>
+            </div>
+        </div>
+        <div class="notes-container">
+            <textarea
+                id="notesArea"
+                placeholder="Write your programming notes here..."
+            ></textarea>
+            <div class="notes-footer">
+                <span id="saveStatus">
+                    ● LOCAL
+                </span>
+                <button class="primary-btn" id="saveNotes">
+                    SAVE NOTES
+                </button>
+            </div>
+        </div>
+    </section>
+</main>
+<!-- TOAST -->
+<div id="toast" class="toast">
+    Saved locally.
+</div>
+<script src="app.js"></script>
+</body>
+</html>
