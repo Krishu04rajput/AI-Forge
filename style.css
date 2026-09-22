@@ -1259,3 +1259,113 @@ textarea:focus {
         padding: 22px;
     }
 }
+
+/* =========================================================
+   COURSE CONTENT
+========================================================= */
+.lesson-article ul {
+    margin: 15px 0 20px 20px;
+    color: #a7bec6;
+    line-height: 2;
+}
+.lesson-article li {
+    margin-bottom: 5px;
+}
+.lesson-article strong {
+    color: var(--cyan);
+}
+/* =========================================================
+   QUIZ
+========================================================= */
+.quiz-box {
+    margin-top: 40px;
+    padding: 25px;
+    background:
+        linear-gradient(
+            135deg,
+            rgba(0, 234, 255, 0.07),
+            rgba(7, 16, 23, 0.9)
+        );
+    border: 1px solid
+        rgba(0, 234, 255, 0.2);
+    border-radius: 10px;
+}
+.quiz-box h2 {
+    font-size: 20px;
+    margin-bottom: 20px;
+}
+.quiz-options {
+    display: grid;
+    gap: 9px;
+}
+.quiz-option {
+    width: 100%;
+    padding: 14px;
+    text-align: left;
+    color: #a7bec6;
+    background:
+        rgba(0, 0, 0, 0.25);
+    border: 1px solid
+        rgba(0, 234, 255, 0.12);
+    border-radius: 7px;
+    transition: 0.2s;
+}
+.quiz-option:hover {
+    color: var(--cyan);
+    border-color:
+        rgba(0, 234, 255, 0.45);
+    background:
+        rgba(0, 234, 255, 0.06);
+}
+.quiz-result {
+    margin-top: 18px;
+    padding: 15px;
+    color: #a7bec6;
+    background:
+        rgba(0, 234, 255, 0.04);
+    border-left:
+        2px solid var(--cyan);
+    line-height: 1.7;
+    font-size: 13px;
+}
+.quiz-result strong {
+    display: block;
+    margin-bottom: 6px;
+}
+/* =========================================================
+   CODE BLOCKS
+========================================================= */
+.code-box {
+    position: relative;
+}
+.code-box::before {
+    content: "PYTHON";
+    display: block;
+    color: rgba(0, 234, 255, 0.45);
+    font-size: 8px;
+    letter-spacing: 2px;
+    margin-bottom: 10px;
+}
+/* =========================================================
+   LESSON CARD IMPROVEMENTS
+========================================================= */
+.lesson-card.completed
+.lesson-index {
+    border-color:
+        rgba(0, 234, 255, 0.5);
+}
+.lesson-card.completed {
+    background:
+        linear-gradient(
+            90deg,
+            rgba(0, 234, 255, 0.05),
+            rgba(7, 16, 23, 0.8)
+        );
+}
+/* =========================================================
+   DISABLED BUTTON
+========================================================= */
+button:disabled {
+    cursor: default;
+    opacity: 0.65;
+}
